@@ -1,0 +1,15 @@
+<form (ngSubmit)="do()" #login="ngForm">
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-content">
+      <input name="name" slickAutofocus type="text" placeholder="Your name" [(ngModel)]="name" required>
+    </div>
+    <div class="card-content">
+      <input name="server" type="url" placeholder="Slick Server" [(ngModel)]="server" required>
+    </div>
+    <div class="card-content" *ngIf="error">{{ error }}</div>
+    <div class="card-actions">
+      <button [disabled]="!login.form.valid">Login</button>
+    </div>
+  </div>
+</form>

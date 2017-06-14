@@ -1,0 +1,4 @@
+<div *ngFor="let message of messages" class="message">
+  <div class="message-user-name">{{ message.participantName || message.participantId }} ({{ message.when.toLocaleTimeString() }})</div>
+  <div class="message-text">{{ message.text }}</div>
+</div>

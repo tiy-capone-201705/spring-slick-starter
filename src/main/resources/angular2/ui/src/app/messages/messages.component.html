@@ -1,0 +1,11 @@
+<div class="full-screen">
+  <slick-user-list [users]="users"></slick-user-list>
+  <slick-message-list class="active-area" [messages]="messages"></slick-message-list>
+</div>
+<div class="full-width">
+  <slick-logout></slick-logout>
+  <slick-chat-input
+    class="active-area"
+    [user-name]="userName"
+    (messages)="sendMessage($event)"></slick-chat-input>
+</div>

@@ -1,0 +1,6 @@
+<form (ngSubmit)="do()" #chat="ngForm">
+  <div class="full-screen">
+    <input name="message" slickAutofocus style="padding-left: 8px;" [(ngModel)]="message" placeholder="{{userName}} says..." required>
+    <button [disabled]="!chat.form.valid">Send</button>
+  </div>
+</form>

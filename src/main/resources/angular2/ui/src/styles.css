@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; padding: 0; margin: 0; }
+html, body, input, textarea, select, button { font-size: 14px; font-family: 'Roboto', sans-serif; }
+body { display: flex; flex-direction: column; background-color: #f3f3f3; }
+slick-header { display: flex; align-items: center; background-color: #2196f3; color: white; padding: 8px 16px; }
+slick-header h1 { margin: 0 0 0 16px; padding: 0; font-family: 'Roboto Condensed', sans-serif; font-size: 2.5rem; }
+slick-header .material-icons { font-size: 30px; }
+slick-login { flex: 1 0 0px; display: flex; justify-content: center; }
+main { flex: 1 0 0px; display: flex; }
+input { border: 0; padding: 8px 0; border-bottom: 2px solid #f3f3f3; width: 100%; }
+input:focus { border-bottom-color: #2196f3; }
+button { background-color: transparent; font-family: 'Roboto Condensed', sans-serif; padding: 4px 8px; text-transform: uppercase; border: 0; color: #ff8f00; transition: box-shadow .3s, background-color .3s, transform .3s; }
+button:focus { box-shadow: 0 1px 1px rgba(0, 0, 0, .4); background-color: white; transform: scale(1.05); }
+button[disabled] { color: rgba(0, 0, 0, .25); }
+slick-header { display: flex; align-items: center; }
+slick-messages { flex-direction: column; flex: 1 0 0px; display: flex; }
+slick-user-list { flex: 1 0 0px; display: block; overflow: auto; padding: 4px 8px; }
+slick-message-list { flex: 2 0 0px; display: block; overflow: auto; padding: 4px 8px; }
+slick-logout { display: block; flex: 1 0 0px; text-align: center; padding: 4px 8px; }
+slick-chat-input { display: block; flex: 2 0 0px; padding: 4px 8px; }
+users-list, messages-list { overflow: auto; align-self: stretch; flex: 1 0 0px; }
+.full-width { display: flex; align-items: center; }
+.full-screen { flex: 1 0 0px; display: flex; justify-content: center; }
+.full-screen:empty { display: none; }
+.full-screen-vertical { flex-direction: column; }
+.tall { flex: 1 0 0px; display: flex; align-content: stretch; }
+.card { background-color: white; width: 400px; border: 1px solid #ccc; border-top: 0; }
+.card-header { background-image: url(/assets/card-photo.jpeg); height: 220px; background-size: cover; }
+.card-content, .card-actions { display: flex; padding: 8px 16px; }
+.card-actions { display: flex; justify-content: flex-end; }
+.messaging-users:empty { display: none; }
+.active-area { background-color: white; align-items: stretch; }
+.message { margin-bottom: .5em; padding: 4px 8px; }
+.message-user-name { font-family: 'Roboto Condensed', sans-serif; font-weight: 700; font-size: .8em; }
+
+input:focus,
+button:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+select:focus,
+textarea:focus {
+  outline: 0;
+  border-color: #129FEA;
+}

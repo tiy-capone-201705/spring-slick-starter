@@ -1,0 +1,6 @@
+<form ng-submit="input.sendMessage()">
+  <div class="full-screen">
+    <input slick-autofocus style="padding-left: 8px;" ng-model="input.message" placeholder="{{input.userName}} says...">
+    <button ng-disabled="!input.message">Send</button>
+  </div>
+</form>

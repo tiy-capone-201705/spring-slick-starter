@@ -1,0 +1,29 @@
+security:
+  user:
+    name: slick
+    password: slick
+
+server:
+  port: 5000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/slick
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  mustache:
+    expose-request-attributes: true
+    # Use this for angular 1
+    prefix: classpath:/angular1/templates/
+    
+    # Use this for angular 2
+    # prefix: classpath:/angular2/templates/
+  resources:
+    # Use this for angular 1
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/angular1/static/,classpath:/public/
+    
+    # Use this for angular 2
+    # static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/angular1/static/,classpath:/public/

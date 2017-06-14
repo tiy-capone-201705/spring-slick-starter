@@ -1,0 +1,63 @@
+<!doctype html>
+<html ng-app="app">
+
+<head>
+  <meta charset="utf-8">
+  <title>Slicker As (Angular 1)</title>
+  <link rel="stylesheet" href="pure-0.6.2.min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    html, body { font-family: 'Roboto', sans-serif; height: 100%; }
+    body { display: flex; flex-direction: column; background-color: #f3f3f3; }
+    header { display: flex; align-items: center; background-color: #2196f3; color: white; padding: 8px 16px; }
+    slick-header h1 { margin: 0 0 0 16px; padding: 0; font-family: 'Roboto Condensed', sans-serif; font-size: 2.5rem; }
+    slick-header .material-icons { font-size: 30px; }
+    main { flex: 1 0 0px; display: flex; }
+    input { border: 0; padding: 8px 0; border-bottom: 2px solid #f3f3f3; width: 100%; }
+    input:focus { border-bottom-color: #2196f3; }
+    button { background-color: transparent; font-family: 'Roboto Condensed', sans-serif; padding: 4px 8px; text-transform: uppercase; border: 0; color: #ff8f00; transition: box-shadow .3s, background-color .3s, transform .3s; }
+    button:focus { box-shadow: 0 1px 1px rgba(0, 0, 0, .4); background-color: white; transform: scale(1.05); }
+    button[disabled] { color: rgba(0, 0, 0, .25); }
+    slick-header { display: flex; align-items: center; }
+    messaging { flex-direction: column; flex: 1 0 0px; display: flex; }
+    users-list, messages-list { overflow: auto; align-self: stretch; flex: 1 0 0px; }
+    .full-screen { flex: 1 0 0px; display: flex; justify-content: center; }
+    .full-screen:empty { display: none; }
+    .full-screen-vertical { flex-direction: column; }
+    .tall { flex: 1 0 0px; display: flex; align-content: stretch; }
+    .card { background-color: white; width: 400px; border: 1px solid #ccc; border-top: 0; }
+    .card-header { background-image: url(/card-photo.jpeg); height: 220px; background-size: cover; }
+    .card-content, .card-actions { display: flex; padding: 8px 16px; }
+    .card-actions { display: flex; justify-content: flex-end; }
+    .messaging-users:empty { display: none; }
+    .active-area { background-color: white; align-items: stretch; }
+    .message { margin-bottom: .5em; padding: 4px 8px; }
+    .message-user-name { font-family: 'Roboto Condensed', sans-serif; font-weight: 700; font-size: .8em; }
+  </style>
+</head>
+
+<body>
+  <header ui-view="header"></header>
+  <main>
+    <ui-view class="full-screen"></ui-view>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js"></script>
+  <script src="angular-1.6.4.min.js"></script>
+  <script src="angular-resource-1.6.4.min.js"></script>
+  <script src="angular-ui-router-1.0.3.min.js"></script>
+  <script src="app.module.js"></script>
+  <script src="app.config.js"></script>
+  <script src="login/login.component.js"></script>
+  <script src="messaging/messaging.component.js"></script>
+  <script src="users-list/users-list.component.js"></script>
+  <script src="chat-input/chat-input.component.js"></script>
+  <script src="logout/logout.component.js"></script>
+  <script src="header/header.component.js"></script>
+  <script src="messages-list/messages-list.component.js"></script>
+  <script src="data/data.service.js"></script>
+  <script src="data/socket.service.js"></script>
+  <script src="autofocus/autofocus.directive.js"></script>
+</body>
+
+</html>

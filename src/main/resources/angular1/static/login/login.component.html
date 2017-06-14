@@ -1,0 +1,15 @@
+<form ng-submit="login.do()">
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-content">
+      <input slick-autofocus type="text" placeholder="Your name" ng-model="login.name">
+    </div>
+    <div class="card-content">
+      <input type="text" placeholder="Slick Server" ng-model="login.server">
+    </div>
+    <div class="card-content" ng-if="login.error">{{ login.error }}</div>
+    <div class="card-actions">
+      <button ng-disabled="!login.name || !login.server">Login</button>
+    </div>
+  </div>
+</form>
