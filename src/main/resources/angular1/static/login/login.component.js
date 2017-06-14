@@ -5,7 +5,7 @@ class LoginController {
     this.$state = $state;
     this.dataService = dataService;
     this.$timeout = $timeout;
-    this.server = 'http://slick.curtissimo.com:9000'
+    this.server = 'http://localhost:5000'
   }
 
   do() {

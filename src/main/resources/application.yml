@@ -26,4 +26,4 @@ spring:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/angular1/static/,classpath:/public/
     
     # Use this for angular 2
-    # static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/angular1/static/,classpath:/public/
+    # static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/angular2/static/,classpath:/public/
