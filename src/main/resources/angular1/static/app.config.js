@@ -2,7 +2,7 @@
 
 angular
   .module('app')
-  .config(['$stateProvider', '$urlServiceProvider', ($sp, $usp) => {
+  .config(['$stateProvider', '$urlServiceProvider', '$locationProvider', ($sp, $usp, $lp) => {
     const login = {
       name: 'login',
       url: '/login',
@@ -40,6 +40,7 @@ angular
     $sp.state(messagingApp);
     $sp.state(messaging)
     $usp.rules.initial('login');
+    $lp.html5Mode(true)
   }]);
 
 }());
