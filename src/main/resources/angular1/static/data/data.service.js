@@ -23,25 +23,18 @@ class DataService {
     if (!this.socketService.isConnected) {
       this[nameSym] = name;
       const joined = this.joined.bind(this);
-      const named = this.named.bind(this);
       const messaged = this.messaged.bind(this);
       const left = this.left.bind(this);
 
       this.socketService.connect(server);
-      this.socketService.send('user named', name);
-      this.socketService.addEventListener('user joined', joined);
-      this.socketService.addEventListener('user named', named);
-      this.socketService.addEventListener('chat message', messaged);
-      this.socketService.addEventListener('user left', left);
+      this.socketService.addMessageListener(messaged);
+      this.socketService.addDepartureListener(left);
     }
   }
 
   sendMessage(message, name) {
     if (this.socketService) {
-      if (name) {
-        this.socketService.send('user named', name);
-      }
-      this.socketService.send('chat message', message);
+      this.socketService.send(message);
     }
   }
 
@@ -63,21 +56,9 @@ class DataService {
     }
   }
 
-  named({id, name}) {
-    this.$log.info('user named:', id, name);
-    const participant = this.participants.find(p => p.id === id) || {};
-    participant.name = name;
-    this.$rootScope.$apply();
-  }
-
   messaged({id, msg}) {
-    let participant = this.participants.find(p => p.id === id);
-    if (!participant) {
-      participant = { id };
-      this.participants.push(participant);
-    }
     this.$log.info('message from', id, msg);
-    this.messages.unshift({ participant, text: msg, when: new Date() });
+    this.messages.unshift({ participant: '', text: msg, when: new Date() });
     this.$rootScope.$apply();
   }
 
