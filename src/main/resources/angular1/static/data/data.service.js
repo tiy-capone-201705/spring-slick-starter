@@ -3,7 +3,7 @@
 const nameSym = Symbol();
 
 class DataService {
-  constructor(socketService, $timeout, $log, $rootScope, $http) {
+  constructor(socketService, $timeout, $log, $rootScope, $http, $document) {
     this.socketService = socketService;
     this.$timeout = $timeout;
     this.$log = $log;
@@ -11,6 +11,14 @@ class DataService {
     this.$http = $http;
     this.participants = [];
     this.messages = [];
+
+    for (let link of Array.from($document.find('link'))) {
+      if (link.rel === 'active-users-api-url') {
+        this.activeUsersApiUrl = link.href;
+      } else if (link.rel === 'message-history-api-url') {
+    	    this.messageHistoryApiUrl = link.href;
+      }
+    }
   }
 
   get isConnected() {
@@ -25,8 +33,9 @@ class DataService {
 	if (!this.isConnected) {
       return this.$timeout(() => this.getInitialLoadOfParticipants(), 100);
 	}
-    return this.$http
-      .get('/api/active-users')
+
+	return this.$http
+      .get(this.activeUsersApiUrl)
       .then(response => response.data)
       .then(participants => {
         for (let participant of participants) {
@@ -40,7 +49,7 @@ class DataService {
   
   getInitialLoadOfMessages() {
     return this.$http
-      .get('/api/messages')
+      .get(this.messageHistoryApiUrl)
       .then(response => response.data)
       .then(messages => {
         for (let message of messages) {
@@ -116,6 +125,6 @@ class DataService {
 
 angular
   .module('app')
-  .factory('dataService', ['socketService', '$timeout', '$log', '$rootScope', '$http', (s, t, l, rs, h) => new DataService(s, t, l, rs, h)]);
+  .factory('dataService', ['socketService', '$timeout', '$log', '$rootScope', '$http', '$document', (s, t, l, rs, h, d) => new DataService(s, t, l, rs, h, d)]);
 
 }());

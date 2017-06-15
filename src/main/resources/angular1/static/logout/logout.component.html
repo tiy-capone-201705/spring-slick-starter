@@ -1,1 +1,4 @@
-<button ng-click="logout.do()">Logout</button>
+<form method="post" action="/logout">
+	<input type="hidden" name="{{ logout.csrf.parameterName }}" value="{{ logout.csrf.token }}">
+	<button>Logout</button>
+</form>
