@@ -1,11 +1,18 @@
 (function () {
 
 class LoginController {
-  constructor($state, $timeout, dataService) {
+  constructor($document, $state, $timeout, dataService) {
     this.$state = $state;
     this.dataService = dataService;
     this.$timeout = $timeout;
     this.server = 'http://localhost:5000'
+
+    	let body = $document[0].querySelector('body[data-name]');
+	if (body) {
+	  this.name = body.getAttribute('data-name');
+	  this.dataService.login(this.name, this.server);
+	  this.$state.go('messaging.name', { userName: this.name, host: this.server });
+	}	
   }
 
   do() {
@@ -25,7 +32,7 @@ class LoginController {
 angular
   .module('app')
   .component('login', {
-    controller: ['$state', '$timeout', 'dataService', (s, t, ds) => new LoginController(s, t, ds)],
+    controller: ['$document', '$state', '$timeout', 'dataService', (d, s, t, ds) => new LoginController(d, s, t, ds)],
     controllerAs: 'login',
     templateUrl: 'login/login.component.html'
   });
