@@ -5,13 +5,22 @@ class LoginController {
     this.$state = $state;
     this.dataService = dataService;
     this.$timeout = $timeout;
-    this.server = 'http://localhost:5000'
-
-    	let body = $document[0].querySelector('body[data-name]');
+    this.server = 'http://localhost:5000';
+    this.$document = $document;
+  }
+  
+  $onInit() {
+    let body = this.$document.find('body');
 	if (body) {
-	  this.name = body.getAttribute('data-name');
-	  this.dataService.login(this.name, this.server);
-	  this.$state.go('messaging.name', { userName: this.name, host: this.server });
+	  this.name = body.attr('data-name') || null;
+      this.csrf = {
+        parameterName: body.attr('data-csrf-parameter-name'),
+        token: body.attr('data-csrf-token')
+      };
+	  if (this.name) {
+        this.dataService.login(this.name, this.server);
+        this.$state.go('messaging.name', { userName: this.name, host: this.server });
+	  }
 	}	
   }
 

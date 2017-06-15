@@ -14,10 +14,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+				.antMatchers("/login", "/card-photo.jpeg", "/pure-0.6.2.min.css", "/webjars/**", "/angular*", "/app*", "/chat-input/*", "/logout/*", "/header/*", "/messages-list/*", "/data/*", "/autofocus/*", "/login/*", "/messaging/*", "/users-list/*").permitAll()
 				.antMatchers("/admin/**").hasRole("ADMIN")
 				.anyRequest().authenticated()
 			.and()
 			.formLogin()
+				.loginPage("/login")
 				.defaultSuccessUrl("/");
 	}
 	

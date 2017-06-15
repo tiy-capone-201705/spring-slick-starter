@@ -48,6 +48,10 @@ class DataService {
   }
   
   getInitialLoadOfMessages() {
+	if (!this.isConnected) {
+	  return this.$timeout(() => this.getInitialLoadOfMessages(), 100);
+	}
+
     return this.$http
       .get(this.messageHistoryApiUrl)
       .then(response => response.data)
@@ -64,17 +68,20 @@ class DataService {
   }
 
   login(name, server) {
-    if (!this.socketService.isConnected) {
-      this[nameSym] = name;
-      const joined = this.joined.bind(this);
-      const messaged = this.messaged.bind(this);
-      const left = this.left.bind(this);
-
-      this.socketService.connect(server);
-      this.socketService.addMessageListener(messaged);
-      this.socketService.addJoinListener(joined);
-      this.socketService.addDepartureListener(left);
-    }
+	if (!this.loggingInCalled) {
+		this.loggingInCalled = true;
+	    if (!this.socketService.isConnected) {
+	    	  this[nameSym] = name;
+	      const joined = this.joined.bind(this);
+	      const messaged = this.messaged.bind(this);
+	      const left = this.left.bind(this);
+	
+	      this.socketService.connect(server);
+	      this.socketService.addMessageListener(messaged);
+	      this.socketService.addJoinListener(joined);
+	      this.socketService.addDepartureListener(left);
+	    }
+	}
   }
 
   sendMessage(message, name) {
@@ -90,6 +97,7 @@ class DataService {
     this[nameSym] = '';
     this.participants = [];
     this.messages = [];
+    this.loggingInCalled = false;
   }
 
   joined(person) {

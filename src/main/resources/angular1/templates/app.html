@@ -4,8 +4,10 @@
 <head>
   <meta charset="utf-8">
   <title>Slicker As (Angular 1)</title>
+  {{#name}}
   <link rel="active-users-api-url" href="/api/active-users">
   <link rel="message-history-api-url" href="/api/messages">
+  {{/name}}
   <link rel="stylesheet" href="pure-0.6.2.min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -39,7 +41,7 @@
   </style>
 </head>
 
-<body data-name="{{ name }}" data-csrf-parameter-name="{{ _csrf.parameterName }}" data-csrf-token="{{ _csrf.token }}">
+<body {{#name}}data-name="{{ name }}"{{/name}} data-csrf-parameter-name="{{ _csrf.parameterName }}" data-csrf-token="{{ _csrf.token }}">
   <header ui-view="header"></header>
   <main>
     <ui-view class="full-screen"></ui-view>
