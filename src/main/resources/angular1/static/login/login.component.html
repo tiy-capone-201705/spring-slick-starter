@@ -8,12 +8,9 @@
     <div class="card-content">
       <input placeholder="Your password" name="password" type="password" ng-model="login.password">
     </div>
-    <div class="card-content">
-      <input type="text" placeholder="Slick Server" ng-model="login.server">
-    </div>
     <div class="card-content" ng-if="login.error">{{ login.error }}</div>
     <div class="card-actions">
-      <button ng-disabled="!login.name || !login.password || !login.server">Login</button>
+      <button ng-disabled="!login.name || !login.password">Login</button>
     </div>
   </div>
 </form>
