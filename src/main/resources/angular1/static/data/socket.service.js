@@ -14,20 +14,20 @@ class SocketService {
       let stomp = Stomp.over(this.socket);
       stomp.connect({}, frame => {
         this.stomp = stomp;
-        this.chatSubscription = stomp.subscribe('/topic/chats', chat => {
+        stomp.subscribe('/topic/chats', chat => {
           console.log(chat);
           let message = JSON.parse(chat.body);
           for (let listener of this.messageListeners) {
             listener(message);
           }
         });
-        this.joinSubscription = stomp.subscribe('/topic/joins', join => {
-          let message = chat.body;
+        stomp.subscribe('/topic/joins', join => {
+          let message = JSON.parse(join.body);
           for (let listener of this.joinListeners) {
             listener(message);
           }
         });
-        this.departureSubscription = stomp.subscribe('/topic/departures', departure => {
+        stomp.subscribe('/topic/departures', departure => {
           let message = departure.body;
           for (let listener of this.departureListeners) {
             listener(message);
@@ -75,7 +75,7 @@ class SocketService {
 
   send(message) {
     if (this.stomp) {
-	    this.stomp.send('/api/chat', {}, message);
+	  this.stomp.send('/api/chat', {}, message);
     }
   }
 }

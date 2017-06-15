@@ -45,6 +45,7 @@ class DataService {
 
       this.socketService.connect(server);
       this.socketService.addMessageListener(messaged);
+      this.socketService.addJoinListener(joined);
       this.socketService.addDepartureListener(left);
     }
   }
@@ -64,11 +65,12 @@ class DataService {
     this.messages = [];
   }
 
-  joined(id) {
-    this.$log.info('user joined:', id);
-    const participant = this.participants.find(p => p.id === id);
+  joined(person) {
+    this.$log.info('user joined:', person);
+    person.name = person.nickName;
+    const participant = this.participants.find(p => p.id === person.id);
     if (!participant) {
-      this.participants.push({ id });
+      this.participants.push(person);
       this.$rootScope.$apply();
     }
   }
