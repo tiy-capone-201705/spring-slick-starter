@@ -21,6 +21,8 @@ spring:
     
     # Use this for angular 2
     # prefix: classpath:/angular2/templates/
+  profiles:
+    active: development
   resources:
     # Use this for angular 1
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/angular1/static/,classpath:/public/

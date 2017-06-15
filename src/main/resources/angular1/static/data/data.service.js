@@ -3,10 +3,11 @@
 const nameSym = Symbol();
 
 class DataService {
-  constructor(socketService, $log, $rootScope) {
+  constructor(socketService, $log, $rootScope, $http) {
     this.socketService = socketService;
     this.$log = $log;
     this.$rootScope = $rootScope;
+    this.$http = $http;
     this.participants = [];
     this.messages = [];
   }
@@ -17,6 +18,22 @@ class DataService {
 
   get name() {
     return this[nameSym];
+  }
+  
+  getInitialLoadOfMessages() {
+    return this.$http
+      .get('/api/messages')
+      .then(response => response.data)
+      .then(messages => {
+        for (let message of messages) {
+          this.messages.unshift({
+            participant: { name: message.author.nickName, id: message.author.id },
+            text: message.content,
+            when: new Date(message.sentOn),
+            id: message.id
+          });
+        }
+      });
   }
 
   login(name, server) {
@@ -56,9 +73,14 @@ class DataService {
     }
   }
 
-  messaged({name, message}) {
-    this.$log.info('message from', name, message);
-    this.messages.unshift({ participant: { name, id: null }, text: message, when: new Date() });
+  messaged(message) {
+    this.$log.info('message:',message);
+    this.messages.unshift({
+      participant: { name: message.author.nickName, id: message.author.id },
+      text: message.content,
+      when: new Date(message.sentOn),
+      id: message.id
+    });
     this.$rootScope.$apply();
   }
 
@@ -74,6 +96,6 @@ class DataService {
 
 angular
   .module('app')
-  .factory('dataService', ['socketService', '$log', '$rootScope', (s, l, rs) => new DataService(s, l, rs)]);
+  .factory('dataService', ['socketService', '$log', '$rootScope', '$http', (s, l, rs, h) => new DataService(s, l, rs, h)]);
 
 }());

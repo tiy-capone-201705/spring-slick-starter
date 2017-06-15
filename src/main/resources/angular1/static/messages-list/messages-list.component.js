@@ -4,10 +4,12 @@ class MessagesListController {
   constructor(dataService, $log) {
     this.dataService = dataService;
     this.$log = $log;
+	this.messages = [];
   }
 
   $onInit() {
-    this.messages = this.dataService.messages;
+	this.messages = this.dataService.messages;
+    this.dataService.getInitialLoadOfMessages();
   }
 }
 
