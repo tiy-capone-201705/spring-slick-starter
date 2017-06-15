@@ -56,9 +56,9 @@ class DataService {
     }
   }
 
-  messaged({id, msg}) {
-    this.$log.info('message from', id, msg);
-    this.messages.unshift({ participant: '', text: msg, when: new Date() });
+  messaged({name, message}) {
+    this.$log.info('message from', name, message);
+    this.messages.unshift({ participant: { name, id: null }, text: message, when: new Date() });
     this.$rootScope.$apply();
   }
 

@@ -16,9 +16,9 @@ class SocketService {
         this.stomp = stomp;
         this.chatSubscription = stomp.subscribe('/topic/chats', chat => {
           console.log(chat);
-          let message = chat.body;
+          let message = JSON.parse(chat.body);
           for (let listener of this.messageListeners) {
-            listener({ id: null, msg: message });
+            listener(message);
           }
         });
         this.joinSubscription = stomp.subscribe('/topic/joins', join => {
