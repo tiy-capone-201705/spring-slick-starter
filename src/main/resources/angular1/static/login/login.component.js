@@ -13,6 +13,7 @@ class LoginController {
     let body = this.$document.find('body');
 	if (body) {
 	  this.name = body.attr('data-name') || null;
+	  this.error = body.attr('data-error') || null;
       this.csrf = {
         parameterName: body.attr('data-csrf-parameter-name'),
         token: body.attr('data-csrf-token')
@@ -22,19 +23,6 @@ class LoginController {
         this.$state.go('messaging.name', { userName: this.name, host: this.server });
 	  }
 	}	
-  }
-
-  do() {
-    this.dataService.login(this.name, this.server);
-    this.error = 'Connecting...';
-    this.$timeout(() => {
-      if (this.dataService.isConnected) {
-        this.$state.go('messaging.name', { userName: this.name, host: this.server });
-      } else {
-        this.dataService.logout();
-        this.error = 'Cannot connect to that server.';
-      }
-    }, 1000);
   }
 }
 

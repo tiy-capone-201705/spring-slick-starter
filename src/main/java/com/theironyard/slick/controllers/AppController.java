@@ -14,6 +14,7 @@ public class AppController {
 	public String showApplication(UsernamePasswordAuthenticationToken token, Model model) {
 		String name = token.getName();
 		model.addAttribute("name", name);
+		model.addAttribute("error", "");
 		return "app";
 	}
 	

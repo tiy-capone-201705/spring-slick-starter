@@ -41,7 +41,7 @@
   </style>
 </head>
 
-<body {{#name}}data-name="{{ name }}"{{/name}} data-csrf-parameter-name="{{ _csrf.parameterName }}" data-csrf-token="{{ _csrf.token }}">
+<body data-error="{{ error }}" {{#name}}data-name="{{ name }}"{{/name}} data-csrf-parameter-name="{{ _csrf.parameterName }}" data-csrf-token="{{ _csrf.token }}">
   <header ui-view="header"></header>
   <main>
     <ui-view class="full-screen"></ui-view>
