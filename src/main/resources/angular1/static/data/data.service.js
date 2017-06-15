@@ -3,8 +3,9 @@
 const nameSym = Symbol();
 
 class DataService {
-  constructor(socketService, $log, $rootScope, $http) {
+  constructor(socketService, $timeout, $log, $rootScope, $http) {
     this.socketService = socketService;
+    this.$timeout = $timeout;
     this.$log = $log;
     this.$rootScope = $rootScope;
     this.$http = $http;
@@ -18,6 +19,23 @@ class DataService {
 
   get name() {
     return this[nameSym];
+  }
+  
+  getInitialLoadOfParticipants() {
+	if (!this.isConnected) {
+      return this.$timeout(() => this.getInitialLoadOfParticipants(), 100);
+	}
+    return this.$http
+      .get('/api/active-users')
+      .then(response => response.data)
+      .then(participants => {
+        for (let participant of participants) {
+          this.participants.unshift({
+        	  	id: participant.id,
+        	  	name: participant.nickName
+          });
+        }
+      });
   }
   
   getInitialLoadOfMessages() {
@@ -86,9 +104,9 @@ class DataService {
     this.$rootScope.$apply();
   }
 
-  left(id) {
-    const index = this.participants.findIndex(p => p.id === id);
-    this.$log.info('removing user', id, index);
+  left(participant) {
+    const index = this.participants.findIndex(p => p.id === participant.id);
+    this.$log.info('removing user', participant, index);
     if (index >= 0) {
       this.participants.splice(index, 1);
       this.$rootScope.$apply();
@@ -98,6 +116,6 @@ class DataService {
 
 angular
   .module('app')
-  .factory('dataService', ['socketService', '$log', '$rootScope', '$http', (s, l, rs, h) => new DataService(s, l, rs, h)]);
+  .factory('dataService', ['socketService', '$timeout', '$log', '$rootScope', '$http', (s, t, l, rs, h) => new DataService(s, t, l, rs, h)]);
 
 }());

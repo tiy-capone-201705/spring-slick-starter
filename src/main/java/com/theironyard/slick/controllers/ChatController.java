@@ -24,7 +24,7 @@ public class ChatController {
 	@MessageMapping("/chat")
 	@SendTo("/topic/chats")
 	public ChatMessage handleMessage(UsernamePasswordAuthenticationToken token, String content) {
-		Person author = people.findByNickName(token.getName()).get(0);
+		Person author = people.findFirstByNickName(token.getName());
 		ChatMessage message = messages.save(new ChatMessage(author, content));
 		
 		return message;

@@ -2,7 +2,7 @@
 
 class SocketService {
   get isConnected() {
-      return this.socket && this.socket.readyState === SockJS.OPEN;
+      return this.socket && this.socket.readyState === SockJS.OPEN && this.connected;
   }
 
   connect(server) {
@@ -12,10 +12,11 @@ class SocketService {
     if (!this.stomp) {
       this.stomp = { send() {} };
       let stomp = Stomp.over(this.socket);
+      stomp.debug = () => {};
       stomp.connect({}, frame => {
+    	    this.connected = true;
         this.stomp = stomp;
         stomp.subscribe('/topic/chats', chat => {
-          console.log(chat);
           let message = JSON.parse(chat.body);
           for (let listener of this.messageListeners) {
             listener(message);
@@ -28,7 +29,7 @@ class SocketService {
           }
         });
         stomp.subscribe('/topic/departures', departure => {
-          let message = departure.body;
+          let message = JSON.parse(departure.body);
           for (let listener of this.departureListeners) {
             listener(message);
           }
@@ -38,6 +39,7 @@ class SocketService {
   }
 
   disconnect() {
+	this.connected = false;
     if (this.stomp) {
       this.stomp.disconnect(() => {
         this.messageListeners = [];

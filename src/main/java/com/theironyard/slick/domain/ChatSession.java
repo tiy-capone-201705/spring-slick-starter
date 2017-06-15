@@ -14,7 +14,13 @@ public class ChatSession {
 	private Long id;
 	
 	@OneToOne
-	private Person loggedIn;
+	private Person participant;
+	
+	public ChatSession() {}
+	
+	public ChatSession(Person participant) {
+		this.participant = participant;
+	}
 
 	public Long getId() {
 		return id;
@@ -24,12 +30,12 @@ public class ChatSession {
 		this.id = id;
 	}
 
-	public Person getLoggedIn() {
-		return loggedIn;
+	public Person getParticipant() {
+		return participant;
 	}
 
-	public void setLoggedIn(Person loggedIn) {
-		this.loggedIn = loggedIn;
+	public void setParticipant(Person participant) {
+		this.participant = participant;
 	}
 
 }

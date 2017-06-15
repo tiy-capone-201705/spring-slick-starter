@@ -7,6 +7,7 @@ class UserListController {
 
   $onInit() {
     this.participants = this.dataService.participants;
+    this.dataService.getInitialLoadOfParticipants();
   }
 }
 
