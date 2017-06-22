@@ -11,7 +11,7 @@ import com.theironyard.slick.domain.PeopleRepository;
 import com.theironyard.slick.domain.Person;
 
 @Controller
-public class ChatController {
+public class ChatController { //web socket controller (ie: similar to an api controller)
 	
 	private ChatMessagesRepository messages;
 	private PeopleRepository people;

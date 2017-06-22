@@ -1,4 +1,11 @@
 <div ng-repeat="message in list.messages" class="message">
-  <div class="message-user-name">{{ message.participant.name || message.participant.id }} ({{ message.when.toLocaleTimeString() }})</div>
+  <div class="message-user-name"
+    ng-click="count = count + 1"
+    ng-init="count=0">
+    {{ message.participant.name || message.participant.id }} ({{ message.when.toLocaleTimeString() }})
+  </div>
   <div class="message-text">{{ message.text }}</div>
+  <p>The button has been clicked {{count}} times.</p>
+  <!-- this is where i'll put my new component that i'll pass through participant -->
+  <!--<side-modal></side-modal>-->
 </div>

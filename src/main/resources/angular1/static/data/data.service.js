@@ -13,6 +13,7 @@ class DataService {
     this.messages = [];
 
     for (let link of Array.from($document.find('link'))) {
+      console.log('link linnk: ', link)
       if (link.rel === 'active-users-api-url') {
         this.activeUsersApiUrl = link.href;
       } else if (link.rel === 'message-history-api-url') {
@@ -111,7 +112,7 @@ class DataService {
   }
 
   messaged(message) {
-    this.$log.info('message:',message);
+    this.$log.info('message iii:',message);
     this.messages.unshift({
       participant: { name: message.author.nickName, id: message.author.id },
       text: message.content,

@@ -20,7 +20,7 @@ spring:
     prefix: classpath:/angular1/templates/
     
     # Use this for angular 2
-    # prefix: classpath:/angular2/templates/
+    #prefix: classpath:/angular2/templates/
   profiles:
     active: development
   resources:

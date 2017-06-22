@@ -2,6 +2,7 @@
 <html ng-app="app">
 
 <head>
+  <base href="/">
   <meta charset="utf-8">
   <title>Slicker As (Angular 1)</title>
   {{#name}}
@@ -11,7 +12,6 @@
   <link rel="stylesheet" href="pure-0.6.2.min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <base href="/">
   <style>
     html, body { font-family: 'Roboto', sans-serif; height: 100%; }
     body { display: flex; flex-direction: column; background-color: #f3f3f3; }
@@ -55,8 +55,9 @@
   <script src="app.module.js"></script>
   <script src="app.config.js"></script>
   <script src="login/login.component.js"></script>
-  <script src="messaging/messaging.component.js"></script>
+  <script src="msgng/messaging.component.js"></script>
   <script src="users-list/users-list.component.js"></script>
+  <script src="side-modal/side-modal.component.js"></script>
   <script src="chat-input/chat-input.component.js"></script>
   <script src="logout/logout.component.js"></script>
   <script src="header/header.component.js"></script>

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/") //only place really serving tuff
 public class AppController {
 
-	@GetMapping("")
+	@GetMapping({"", "messaging/{userName}", "messaging/{userName}/{server}"})
 	public String showApplication(UsernamePasswordAuthenticationToken token, Model model) {
 		String name = token.getName();
 		model.addAttribute("name", name);

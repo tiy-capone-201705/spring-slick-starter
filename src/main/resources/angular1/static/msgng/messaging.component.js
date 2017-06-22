@@ -3,7 +3,7 @@
 angular
   .module('app')
   .component('messaging', {
-    templateUrl: 'messaging/messaging.component.html',
+    templateUrl: 'msgng/messaging.component.html',
     controllerAs: 'messaging'
   })
 

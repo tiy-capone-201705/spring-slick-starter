@@ -11,6 +11,7 @@ class LoginController {
   
   $onInit() {
     let body = this.$document.find('body');
+    console.log('inside login')
 	if (body) {
 	  this.name = body.attr('data-name') || null;
 	  this.error = body.attr('data-error') || null;
@@ -20,7 +21,7 @@ class LoginController {
       };
 	  if (this.name) {
         this.dataService.login(this.name, this.server);
-        this.$state.go('messaging.name', { userName: this.name, host: this.server });
+        this.$state.go('messaging.justname', { userName: this.name });
 	  }
 	}	
   }
