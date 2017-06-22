@@ -17,15 +17,15 @@ spring:
   mustache:
     expose-request-attributes: true
     # Use this for angular 1
-    prefix: classpath:/angular1/templates/
+    #prefix: classpath:/angular1/templates/
     
     # Use this for angular 2
-    #prefix: classpath:/angular2/templates/
+    prefix: classpath:/angular2/templates/
   profiles:
     active: development
   resources:
     # Use this for angular 1
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/angular1/static/,classpath:/public/
+    #static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/angular1/static/,classpath:/public/
     
     # Use this for angular 2
-    # static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/angular2/static/,classpath:/public/
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/angular2/static/,classpath:/public/

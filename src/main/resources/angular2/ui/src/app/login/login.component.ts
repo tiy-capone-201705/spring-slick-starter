@@ -9,7 +9,7 @@ import { SlickDataService } from '../slick-data/slick-data.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  server = 'http://slick.curtissimo.com:9000';
+  server = 'http://localhost:5000/ws';
   name: string;
   error: string;
 
@@ -17,17 +17,19 @@ export class LoginComponent {
 
   do() {
     this.error = 'Connecting...';
-    this.slickData.connect(this.name, this.server);
-    setTimeout(() => {
-      if (this.slickData.isConnected) {
-        this.router.navigate([
+    console.log('this.name: ', this.name)
+    console.log('this.server: ', this.server)
+    this.slickData.connect(this.name, this.server)
+      .then(() => {
+        this.router.navigate([ //this is the $state.go
           'messages',
           this.name,
           this.server
         ]);
-      } else {
+      })
+      .catch(e => {
+        console.log(e);
         this.error = 'Cannot connect to that server.';
-      }
-    }, 1000);
+      });
   }
 }

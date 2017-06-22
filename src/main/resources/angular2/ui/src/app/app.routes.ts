@@ -9,3 +9,5 @@ export const AppRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 ];
+
+//ui-router (3rd party) is state based vs angular's router (as seen above) is path based
