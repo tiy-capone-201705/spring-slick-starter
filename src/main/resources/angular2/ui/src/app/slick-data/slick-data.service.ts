@@ -29,17 +29,22 @@ export class SlickDataSubscriptions {
   get messages(): Observable<Message> {
     return new Observable<Message>(observer => {
       console.log('this.stomp: ', this.stomp)
+      console.log('observer observer: ', observer)
       // console.log('id: ', id)
       // console.log('msg: ', msg)
+      var headers = new Headers();
+      headers.append('content-type', 'application/x-www-form-urlencoded');
       this.stomp.subscribe('/topic/chats', ({ id, msg }) => {
         console.log('inside the message???')
+        console.log('id: ', id)
+         console.log('msg: ', msg)
         const message: Message = {
           participantId: id,
           text: msg,
           when: new Date()
         };
         observer.next(message);
-      });
+      }, headers);
     });
   }
 
@@ -122,7 +127,7 @@ export class SlickDataService {
         });
       });
     }
-
+    console.log('i am already connected....')
     // //with node version, we only needed to manage socket IO
     // //in java version, need to also manage stomp client
 
@@ -142,7 +147,8 @@ export class SlickDataService {
 
   sendMessage(message: string): void {
     if (this.stomp) {
-      this.stomp.send('chat message', message);
+      console.log('message here you go: ', message)
+      this.stomp.send('/api/chat', {}, message);
     }
   }
 

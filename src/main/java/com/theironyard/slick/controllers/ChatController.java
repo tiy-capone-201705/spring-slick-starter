@@ -24,6 +24,8 @@ public class ChatController { //web socket controller (ie: similar to an api con
 	@MessageMapping("/chat")
 	@SendTo("/topic/chats")
 	public ChatMessage handleMessage(UsernamePasswordAuthenticationToken token, String content) {
+		System.out.println("token: " + token);
+		System.out.println("content: " + content);
 		Person author = people.findFirstByNickName(token.getName());
 		ChatMessage message = messages.save(new ChatMessage(author, content));
 		
