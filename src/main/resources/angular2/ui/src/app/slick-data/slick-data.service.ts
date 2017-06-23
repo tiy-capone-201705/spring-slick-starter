@@ -103,6 +103,14 @@ export class SlickDataService {
   get isStompConnected(): boolean {
     return this.isConnected;
   }
+  
+  getInitialLoadOfParticipants(): Promise<Participant[]> {
+    return this.http
+        .get('/api/active-users', {withCredentials: true})
+        .toPromise()
+        .then(response => response.json())
+        .then(list => list.map(o => ({ id: o.id, name: o.nickName })));
+  }
 
   connect(name: string, server: string): Promise<SlickDataSubscriptions> {
     var headers = new Headers();
@@ -111,9 +119,10 @@ export class SlickDataService {
     console.log('server: ', server)
 
     return this.http
-      .post(server, `username=${name}&password=${name}`, {headers, withCredentials: true})
+      .post('/login', `username=${name}&password=${name}`, {headers, withCredentials: true})
       .toPromise()
-      .then(() => {
+      .then(o => {
+        console.log('here is a thing from the server:', o);
         if (!this.isStompConnected) {
           console.log('server: ', server)
           this.socket = new SockJS(server); // creates a new web socket that upgrades from an HTTP protocol

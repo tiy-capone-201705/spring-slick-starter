@@ -24,11 +24,7 @@ var server = http.createServer(function(req, res) {
 });
 
 server.on('upgrade', function (req, socket, head) {
-  try {
-    proxy.ws(req, socket, head);
-  } catch (e) {
-    console.error(e);
-  }
+  proxy.ws(req, socket, head);
 });
 
 console.log("listening on port 10000")

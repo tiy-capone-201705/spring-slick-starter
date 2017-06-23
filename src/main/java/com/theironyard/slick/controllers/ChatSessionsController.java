@@ -1,6 +1,6 @@
 package com.theironyard.slick.controllers;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +21,11 @@ public class ChatSessionsController {
 	}
 	
 	@GetMapping
-	public List<Person> getAll() {
+	public Set<Person> getAll() {
 		return sessions.findAll()
 			.stream()
 			.map(session -> session.getParticipant())
-			.collect(Collectors.toList());
+			.collect(Collectors.toSet());
 	}
 	
 }
