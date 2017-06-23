@@ -105,35 +105,33 @@ export class SlickDataService {
   }
 
   connect(name: string, server: string): Promise<SlickDataSubscriptions> {
-    // var headers = new Headers();
-    // headers.append('content-type', 'application/x-www-form-urlencoded');
-    // console.log('name: ', name)
-    // console.log('server: ', server)
-    // return this.http
-    //   .post(server, `username=${name}&password=${name}`, {headers, withCredentials: true})
-    //   .map(response => {
-    //     this.stomp = {};
-    //     this.socket = { readyState : SockJS.OPEN };
-    //     console.log('inside map!!!!! fuck yea')
-    //     return new SlickDataSubscriptions(this.stomp);
-    //   })
-    //   .toPromise();
+    var headers = new Headers();
+    headers.append('content-type', 'application/x-www-form-urlencoded');
+    console.log('name: ', name)
+    console.log('server: ', server)
 
-    if (!this.isStompConnected) {
-      console.log('server: ', server)
-      this.socket = new SockJS(server); // creates a new web socket that upgrades from an HTTP protocol
-      this.stomp = Stomp.over(this.socket); // stomp client uses stomp server...connect to web server then make HTTP request to NginX = web server (similar to Apache)...socket is phone line that allows them to talk - I dial the number to call my friend makes ME Stomp and my friend is the Stomp Server
+    return this.http
+      .post(server, `username=${name}&password=${name}`, {headers, withCredentials: true})
+      .toPromise()
+      .then(() => {
+        if (!this.isStompConnected) {
+          console.log('server: ', server)
+          this.socket = new SockJS(server); // creates a new web socket that upgrades from an HTTP protocol
+          this.stomp = Stomp.over(this.socket); // stomp client uses stomp server...connect to web server then make HTTP request to NginX = web server (similar to Apache)...socket is phone line that allows them to talk - I dial the number to call my friend makes ME Stomp and my friend is the Stomp Server
 
-      return new Promise((resolve, reject) => {
-        this.stomp.connect({}, () => {
-          this.isConnected = true;
-          resolve(new SlickDataSubscriptions(this.stomp));
-        }, () => {
-          reject();
-        });
+          return new Promise<SlickDataSubscriptions>((resolve, reject) => {
+            this.stomp.connect({}, () => {
+              this.isConnected = true;
+              resolve(new SlickDataSubscriptions(this.stomp));
+            }, () => {
+              reject();
+            });
+          });
+        }
+        return new Promise<SlickDataSubscriptions>((resolve) => resolve(new SlickDataSubscriptions(this.stomp))); //promise that resolves to stomp new SlickDataSubscriptions(this.stomp);
       });
-    }
-    console.log('i am already connected....')
+
+    // console.log('i am already connected....')
     // //with node version, we only needed to manage socket IO
     // //in java version, need to also manage stomp client
 
@@ -141,7 +139,6 @@ export class SlickDataService {
     // // Need to integrate chatSubscribtion, joinSubscription, and departureSubscription from Curtis's
 
     // // this.setName(name); this is unnecessary because we no longer have emit BECAUSE security we will build will already know you
-    return new Promise((resolve) => resolve(new SlickDataSubscriptions(this.stomp))); //promise that resolves to stomp new SlickDataSubscriptions(this.stomp);
   }
 
   disconnect(): void {

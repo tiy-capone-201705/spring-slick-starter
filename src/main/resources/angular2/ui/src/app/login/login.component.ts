@@ -9,7 +9,7 @@ import { SlickDataService } from '../slick-data/slick-data.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  server = 'http://localhost:5000/ws';
+  server = 'http://localhost:10000/ws';
   name: string;
   error: string;
 
