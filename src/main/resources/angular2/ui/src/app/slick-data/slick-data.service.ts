@@ -34,17 +34,23 @@ export class SlickDataSubscriptions {
       // console.log('msg: ', msg)
       var headers = new Headers();
       headers.append('content-type', 'application/x-www-form-urlencoded');
-      this.stomp.subscribe('/topic/chats', ({ id, msg }) => {
+      let subscription = this.stomp.subscribe('/topic/chats', (msg_body: string) => {
+        console.log(`Received: ${msg_body}`);
         console.log('inside the message???')
-        console.log('id: ', id)
-         console.log('msg: ', msg)
+        // console.log('id: ', id)
+        // const msg = JSON.parse(msg_body);
+        console.log('content: ')
+        const msg = JSON.stringify(msg_body);
+        console.log(typeof msg)
+        console.log('msg.content: ', JSON.parse(JSON.parse(msg).body))
         const message: Message = {
-          participantId: id,
-          text: msg,
+          participantId: JSON.parse(JSON.parse(msg).body).author.nickName, //msg.author.nickName, //id,
+          text: JSON.parse(JSON.parse(msg).body).content, //msg.content, //content,
           when: new Date()
         };
+        console.log('message hey: ', message)
         observer.next(message);
-      }, headers);
+      });
     });
   }
 
